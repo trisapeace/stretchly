@@ -1,0 +1,15 @@
+windows_container:
+  image: cirrusci/windowsservercore:2019
+  os_version: 2019
+
+windows_task_script:
+  node_modules_cache:
+    folder: node_modules
+    fingerprint_script: cat package-lock.json
+    populate_script:
+      - npm install npm -g
+      - npm i
+  test_script:
+    - node --version
+    - npm --version
+    - npx nyc --reporter=lcov npm test && npx codecov
